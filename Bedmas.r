@@ -1,5 +1,17 @@
 rebol []
 
+main: [
+
+	t1: now/time/precise
+	do-math "2234 * ( ( 1 + 2 ) ^^ 2 + ( 3 - 5 ) * 2 )"
+	print now/time/precise - t1
+	
+	; do-math/debug "2234*((1+2)^^2 + (3-5)*2)" 
+	; took 269 microseconds
+	; 0:00:00.000269
+	; roughly 10X the time of the golang version
+]
+
 split-any: func [ str chars2 /local out p1 p2 chars ] [
 
 	; Split a string at any of the given chars in the second argument
@@ -92,8 +104,4 @@ do-math: func [ arg  /debug /local start end pos result] [
 	return arg/1
 ]
 
-; do-math/debug "2234*((1+2)^^2 + (3-5)*2)" 
-do-math "2234 * ( ( 1 + 2 ) ^^ 2 + ( 3 - 5 ) * 2 )"
-; took 269 microseconds
-; 0:00:00.000269
-; roughly 10X the time of the golang version
+do main
